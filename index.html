@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Gestionale Magazzino</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <section id="loginView" class="login-wrap">
+      <div class="login-card">
+        <div class="brand">GESTIONALE</div>
+        <h1>Accesso privato</h1>
+        <p>Inserisci email e password per entrare.</p>
+        <label>Email
+          <input id="email" type="email" autocomplete="username" placeholder="tua@email.it">
+        </label>
+        <label>Password
+          <input id="password" type="password" autocomplete="current-password" placeholder="••••••••">
+        </label>
+        <button id="loginBtn">Accedi</button>
+        <div id="loginMsg" class="msg"></div>
+      </div>
+    </section>
+
+    <section id="appView" class="app hidden">
+      <header class="topbar">
+        <div>
+          <div class="brand">GESTIONALE</div>
+          <div class="sub">Magazzino personale</div>
+        </div>
+        <button id="logoutBtn" class="ghost">Esci</button>
+      </header>
+
+      <nav class="nav">
+        <button class="nav-btn active" data-page="home">🏠 Home</button>
+        <button class="nav-btn" data-page="stock">📦 Magazzino</button>
+        <button class="nav-btn" data-page="moves">🛒 Compra/Vendi</button>
+        <button class="nav-btn" data-page="credits">💳 Crediti</button>
+        <button class="nav-btn" data-page="reports">📊 Resoconti</button>
+      </nav>
+
+      <section id="home" class="page">
+        <h2>Panoramica</h2>
+        <div class="metrics">
+          <article><span>Merce totale</span><strong id="totalQty">0 g</strong></article>
+          <article><span>Valore magazzino</span><strong id="totalValue">€0</strong></article>
+          <article><span>Crediti aperti</span><strong id="totalCredits">€0</strong></article>
+          <article><span>Incassato</span><strong id="totalCash">€0</strong></article>
+        </div>
+        <div class="panel">
+          <h3>Situazione magazzino</h3>
+          <div id="homeStock"></div>
+        </div>
+      </section>
+
+      <section id="stock" class="page hidden">
+        <div class="section-head">
+          <h2>Magazzino</h2>
+          <button id="addProductBtn">+ Prodotto</button>
+        </div>
+        <div id="stockList" class="stack"></div>
+      </section>
+
+      <section id="moves" class="page hidden">
+        <h2>Compra / Vendi</h2>
+        <div class="two-cols">
+          <div class="panel">
+            <h3>Compra merce</h3>
+            <label>Prodotto<select id="buyProduct"></select></label>
+            <label>Quantità
+              <div class="inline">
+                <input id="buyQty" type="number" min="0" step="0.01">
+                <select id="buyUnit"><option value="g">g</option><option value="kg">kg</option></select>
+              </div>
+            </label>
+            <label>Costo totale €<input id="buyCost" type="number" min="0" step="0.01"></label>
+            <button id="buyBtn">Registra acquisto</button>
+          </div>
+
+          <div class="panel">
+            <h3>Vendi merce</h3>
+            <label>Cliente<input id="sellClient" type="text" placeholder="Es. Mauro"></label>
+            <label>Prodotto<select id="sellProduct"></select></label>
+            <label>Quantità
+              <div class="inline">
+                <input id="sellQty" type="number" min="0" step="0.01">
+                <select id="sellUnit"><option value="g">g</option><option value="kg">kg</option></select>
+              </div>
+            </label>
+            <label>Totale vendita €<input id="sellTotal" type="number" min="0" step="0.01"></label>
+            <label>Pagamento
+              <select id="paymentStatus">
+                <option value="paid">Pagato</option>
+                <option value="partial">Parzialmente pagato</option>
+                <option value="credit">A credito</option>
+              </select>
+            </label>
+            <label>Pagato subito €<input id="sellPaid" type="number" min="0" step="0.01"></label>
+            <button id="sellBtn">Registra vendita</button>
+          </div>
+        </div>
+        <div id="moveMsg" class="msg"></div>
+      </section>
+
+      <section id="credits" class="page hidden">
+        <h2>Crediti</h2>
+        <div id="creditList" class="stack"></div>
+      </section>
+
+      <section id="reports" class="page hidden">
+        <h2>Resoconti</h2>
+        <div class="metrics">
+          <article><span>Totale vendite</span><strong id="reportSales">€0</strong></article>
+          <article><span>Incassato</span><strong id="reportCash">€0</strong></article>
+          <article><span>Da incassare</span><strong id="reportCredits">€0</strong></article>
+          <article><span>Valore magazzino</span><strong id="reportStock">€0</strong></article>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-card">
+      <h3>Nuovo prodotto</h3>
+      <label>Nome<input id="newProductName" type="text" placeholder="Es. Dry"></label>
+      <label>Costo medio €/g<input id="newProductCost" type="number" min="0" step="0.01"></label>
+      <div class="actions">
+        <button id="cancelProductBtn" class="ghost">Annulla</button>
+        <button id="saveProductBtn">Salva</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
